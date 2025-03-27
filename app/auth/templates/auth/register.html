@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+
+<div class="parent">
+    <form method="post" enctype="multipart/form-data" class="form-control d-flex flex-column gap-2 w-25">
+        {{ form.csrf_token }}
+        {{ form.login(class="form-control", placeholder="Login") }}
+
+        {% if form.login.errors %}
+            <div class="invalid-feedback" style="display: block!important;">
+                {% for error in form.login.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {{ form.psw (class="form-control", placeholder="Password") }}
+        {{ form.conf_psw (class="form-control", placeholder="Confirm password") }}
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+</div>
+{% endblock %}

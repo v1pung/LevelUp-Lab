@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table border="0" class="profile-table">
+    <tr><td valign="top">
+        <div class="profile-ava"><img src="{{ current_user.avatar }}" alt=""></div>
+        <div class="profile-load">
+            <form method="POST" enctype="multipart/form-data">
+                <p><input type="file" name="file"></p>
+                <p><input type="submit" value="Загрузить"></p>
+            </form>
+        </div>
+    </td>
+    <td valign="top" class="profile-panel">
+
+        <ul class="profile-info">
+
+        </ul>
+    </td></tr>
+</table>
+
+{% endblock %}

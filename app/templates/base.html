@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ Title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {% block style %} {% endblock %}
+</head>
+<body>
+
+<header class="header">
+        {% include '_header.html' %}
+</header>
+
+<div class="content">
+
+    {% for cat, msg in get_flashed_messages(True) %}
+        <div class="flash {{ cat }}">{{ msg }}</div>
+    {% endfor %}
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        {% include '_footer.html' %}
+    </footer>
+</div>
+</body>
+</html>

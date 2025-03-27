@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - /home/v1/dev/ranks/app/db:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - "5332:5432"

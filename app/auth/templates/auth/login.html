@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+
+<div class="parent">
+    <form method="post" enctype="multipart/form-data" class="form-control d-flex flex-column gap-2 w-25">
+        {{ form.csrf_token }}
+        {{ form.login(class="form-control", placeholder="Login") }}
+        {{ form.psw (class="form-control", placeholder="Password") }}
+        <div class="d-flex flex-row gap-2">
+            {{ form.remember.label }}{{ form.remember(class="form-check") }}
+        </div>
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+</div>
+{% endblock %}

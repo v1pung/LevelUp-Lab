@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="left-section">
+            <div class="xp-info">
+                <div>
+                    <p>🌟 {{ current_user.rank }}</p>
+                    <p>Next: {{ next_xp }} XP</p>
+                </div>
+            </div>
+
+            <form method="post" action="{{ url_for('ranks.save_activities') }}">
+                <div class="tasks">
+                {% for activity in activities %}
+                    {% if activity.reward <= 10 %}
+                        <div class="task yellow">
+                    {% else %}
+                        <div class="task green">
+                    {% endif %}
+                            <input type="checkbox" class="form-check-input" name="completed_activities"
+                            value="{{ activity.id }}" {% if activity.is_completed %} checked {% endif %}>
+                            <label class="form-check-label">{{ activity.name }} (+{{ activity.reward }} XP)</label>
+                        </div>
+                {% endfor %}
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="right-section">
+          <div class="history">
+            <h3>{{ current_user.login }}
+                <p style="color: lightgray !important;">since {{ current_user.date.day }}-{{ current_user.date.month }}-{{ current_user.date.year }}</p>
+            </h3>
+<!--            <div class="history-date">08.02: <span class="xp-positive">+20 XP</span></div>-->
+<!--            <div class="history-date">07.02: <span class="xp-negative">-5 XP</span></div>-->
+<!--            <div class="history-date">06.02: <span class="xp-neutral">+10 XP</span></div>-->
+              {% for item in history %}
+                    <div class="history-date">{{ item.date }}: <span class="xp-neutral">+{{ item.value }}XP</span></div>
+              {% endfor %}
+          </div>
+        </div>
+    </div>
+{% endblock %}

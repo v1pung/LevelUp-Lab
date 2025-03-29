@@ -1,10 +1,47 @@
 services:
   postgres:
     image: postgres
-    container_name: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - /home/v1/dev/ranks/app/db:/var/lib/postgresql/data
-    env_file:
-      - .env
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5332:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 2s
+      timeout: 2s
+      retries: 7
+
+  flask:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: flask
+    volumes:
+      - ./.uploads/images/:/app/app/static/upload
+    env_file:
+      - .env
+    environment:
+      FLASK_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    expose:
+      - "8080"
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - flask
+
+volumes:
+  postgres_data:

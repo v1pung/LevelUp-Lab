@@ -15,7 +15,6 @@ class Config:
     DB = os.getenv('POSTGRES_DB')
 
     # SQLALCH
-    SQLALCHEMY_DATABASE_URI = f"postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}"
-    SECRET_KEY = 'a9d88e801e38392980c6710f3e5e742443e8c159'
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
-
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret-key')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

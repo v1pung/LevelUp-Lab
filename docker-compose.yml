@@ -16,16 +16,16 @@ services:
       retries: 7
 
   flask:
-    build:
-      dockerfile: Dockerfile
-      context: .
+    build: .
     container_name: flask
     volumes:
-      - ./.uploads/images/:/app/app/static/upload
+      - .:/app  # Монтируем текущую директорию
+      - ./migrations:/app/migrations  # Сохраняем миграции
     env_file:
       - .env
     environment:
       FLASK_ENV: production
+      FLASK_APP: run.py
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     depends_on:
       postgres:

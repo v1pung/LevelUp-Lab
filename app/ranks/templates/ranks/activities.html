@@ -7,7 +7,7 @@
                 <div><form method="post" enctype="multipart/form-data" class="form-control d-flex flex-column gap-2">
                     {{ form.csrf_token }}
                     {{ form.name(class="form-control", placeholder="Название") }}
-                    {{ form.reward(class="form-control", placeholder="Количество XP") }}
+                    {{ form.reward(class="form-control", placeholder="Количество MMR") }}
 
                     {% if form.reward.errors %}
                         <div class="invalid-feedback" style="display: block!important;">

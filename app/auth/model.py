@@ -6,6 +6,8 @@ from ..ranks.model import RankHistory, Activity
 
 
 class Users(db.Model, UserMixin):
+    __tablename__ = 'users'
+
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(30), unique=True)
     psw = db.Column(db.String(300), nullable=True)

@@ -1,0 +1,7 @@
+.venv/
+.idea/
+migrations/
+.dockerignore
+__pycache__/
+.app/auth/__pycache__/
+.app/ranks/__pycache__/

@@ -5,25 +5,27 @@
         <div class="left-section">
             <div class="xp-info">
                 <div>
-                    <p>🌟 {{ current_user.rank }}</p>
-                    <p>Next: {{ next_xp }} XP</p>
+                    <p>{{ current_user.rank }} MMR {{ rank_name }}</p>
+                    <p>Next: {{ next_xp }} MMR</p>
                 </div>
             </div>
 
             <form method="post" action="{{ url_for('ranks.save_activities') }}">
                 <div class="tasks">
-                {% for activity in activities %}
-                    {% if activity.reward <= 10 %}
-                        <div class="task yellow">
-                    {% else %}
-                        <div class="task green">
-                    {% endif %}
-                            <input type="checkbox" class="form-check-input" name="completed_activities"
-                            value="{{ activity.id }}" {% if activity.is_completed %} checked {% endif %}>
-                            <label class="form-check-label">{{ activity.name }} (+{{ activity.reward }} XP)</label>
-                        </div>
-                {% endfor %}
-                </div>
+    {% for activity in activities %}
+        <div class="task {% if activity.reward <= 10 %}yellow{% else %}green{% endif %}">
+            <input type="checkbox"
+                   class="form-check-input fs-3 mt-auto"
+                   name="completed_activities"
+                   value="{{ activity.id }}"
+                   id="activity_{{ activity.id }}"
+                   {% if activity.is_completed %}checked{% endif %}>
+            <label class="form-check-label ms-2" for="activity_{{ activity.id }}">
+                {{ activity.name }} (+{{ activity.reward }} MMR)
+            </label>
+        </div>
+    {% endfor %}
+</div>
                 <div class="d-flex justify-content-center mt-3">
                     <button type="submit" class="btn btn-success">Сохранить</button>
                 </div>

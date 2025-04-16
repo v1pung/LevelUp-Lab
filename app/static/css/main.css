@@ -4,6 +4,34 @@
     box-sizing: border-box;
 }
 
+.mymessage {
+    color: #fec9c6;
+    text-align: center
+}
+
+/* Основные стили */
+.nav-link {
+    color: #adb5bd;
+    opacity: 0.8;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s ease-in-out,
+                opacity 0.3s ease-in-out,
+                border-color 0.3s ease-in-out;
+}
+
+/* Состояния */
+.nav-link:hover,
+.nav-link:focus {
+    opacity: 1;
+    color: #dee2e6;
+}
+
+.nav-link.active {
+    color: #fff !important;
+    opacity: 1;
+    border-bottom-color: #4e9af1; /* Синий акцент */
+}
+
 body {
     background-image: url("../img/bg.jpg");
     background-size: 40px;
@@ -75,32 +103,42 @@ body {
   margin-bottom: 10px;
   text-align: center;
   font-size: 24px;
-  color: purple;
+  color: #fafafa;
   height: 400px;
 }
 
 .tasks {
-  flex: 1;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  border: 2px solid black;
-  padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    gap: 10px; /* Отступ между элементами */
+    margin-bottom: 20px;
 }
 
 .task {
-  display: inline-block;
-  padding: 10px;
-  font-size: 18px;
-  text-align: center;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
 }
 
 .task.yellow {
-  color: yellow;
+    background-color: rgba(255, 255, 0, 0.1);
 }
 
 .task.green {
-  color: green;
+    background-color: rgba(0, 255,   0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .tasks {
+        grid-template-columns: repeat(2, 1fr); /* На мобильных 2 колонки */
+    }
+}
+
+@media (max-width: 480px) {
+    .tasks {
+        grid-template-columns: 1fr; /* На очень маленьких экранах 1 колонка */
+    }
 }
 
 .right-section {

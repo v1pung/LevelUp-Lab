@@ -19,6 +19,8 @@ def login():
             next_page = request.args.get('next')
             flash("Logged in successfully!", "success")
             return redirect(next_page) if next_page else redirect(url_for('ranks.stats'))
+        else:
+            flash("Неверная пара логин/пароль", "danger")
 
     return render_template("auth/login.html", title="Авторизация", form=form)
 

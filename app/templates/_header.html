@@ -3,11 +3,19 @@
         <img class='header__img' src="{{ url_for('static', filename='medals/kotik.jpg') }}" alt="bu">
     </a>
 
-    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="{{ url_for('ranks.index') }}" class="nav-link px-2 text-secondary">Главная</a></li>
-        <li><a href="{{ url_for('ranks.activities') }}" class="nav-link px-2 text-white">Активности</a></li>
-        <li><a href="{{ url_for('ranks.stats') }}" class="nav-link px-2 text-white">Статистика</a></li>
+    <ul class="nav col-12 col-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left: 4px;">
+    <li><a href="{{ url_for('ranks.index') }}"
+           class="nav-link px-2 {% if request.endpoint == 'ranks.index' %}active text-white{% else %}text-white{% endif %}">
+            Главная</a></li>
+    <li><a href="{{ url_for('ranks.activities') }}"
+           class="nav-link px-2 {% if request.endpoint == 'ranks.activities' %}active text-white{% else %}text-white{% endif %}">
+            Активности</a></li>
+    <li><a href="{{ url_for('ranks.stats') }}"
+           class="nav-link px-2 {% if request.endpoint == 'ranks.stats' %}active text-white{% else %}text-white{% endif %}">
+            Статистика</a></li>
     </ul>
+
+    <span class="nav-link mymessage mx-auto">сайт починил ребят ломайте дальше</span>
 
     <div class="text-end">
         {% if current_user.is_authenticated %}

@@ -29,8 +29,12 @@ def stats():
 @login_required
 def activities():
     form = ActivityForm()
-    activities = Activity.query.filter_by(owner=current_user.id)
+    activities = Activity.query.filter_by(owner=current_user.id).all()
     if form.validate_on_submit():
+        if len(activities) >= 6:
+            flash('Максимальное количество активностей - 6. Удалите старые перед созданием новых.', 'error')
+            return redirect(url_for('ranks.activities'))
+
         activity = Activity(name=form.name.data, reward=form.reward.data, owner=current_user.id)
         try:
             db.session.add(activity)

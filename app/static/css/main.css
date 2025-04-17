@@ -91,7 +91,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-right: 2px solid black;
+  border-right: none;
   padding-right: 10px;
 }
 
@@ -99,7 +99,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
+  border: none;
   margin-bottom: 10px;
   text-align: center;
   font-size: 24px;
@@ -144,11 +144,11 @@ body {
 .right-section {
   flex: 30%;
   padding-left: 10px;
-  border-left: 2px solid black;
+  border-left: none;
 }
 
 .history {
-  border: 2px solid black;
+  border: none;
   padding: 10px;
 }
 

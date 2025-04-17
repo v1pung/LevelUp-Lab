@@ -53,7 +53,6 @@ def save_activities():
     selected_activities = request.form.getlist('completed_activities')
     selected_activities = list(map(int, selected_activities))
 
-
     activities = Activity.query.filter_by(owner=current_user.id).all()
     for activity in activities:
         activity.is_completed = activity.id in selected_activities
@@ -64,3 +63,16 @@ def save_activities():
     except Exception as e:
         print("BD ERROR " + str(e))
     return redirect(url_for('ranks.stats'))
+
+
+@ranks.route("/activities/<int:id>/delete", methods=["GET", "POST"])
+@login_required
+def delete_activity(id):
+    activity = Activity.query.get(id)
+    try:
+        db.session.delete(activity)
+        db.session.commit()
+        return redirect(url_for('ranks.activities'))
+    except Exception as e:
+        print("Ошибка в БД " + str(e))
+        return str(e)

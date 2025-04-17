@@ -27,15 +27,18 @@
         <div class="right-section">
             <h3>Список ваших активностей</h3>
             {% for activity in activities %}
-                {% if activity.reward <= 10 %}
-                <p></p><div class="task yellow">
-                    {{ activity.name }} {{ activity.reward }}
+            {% if activity.reward <= 10 %}
+                <p><div class="task yellow">
+                {{ activity.name }} {{ activity.reward }}
                 </div>
-                {% else %}
-                <p></p><div class="task green">
-                    {{ activity.name }} {{ activity.reward }}
+            {% else %}
+                <p><div class="task green">
+                {{ activity.name }} {{ activity.reward }}
+                 <a href="{{ url_for('ranks.delete_activity', id=activity.id) }}"
+                    class="btn btn-sm btn-danger ms-auto">
+                     <span class="fa fa-trash"></span>Удалить</a>
                 </div>
-                {% endif %}
+            {% endif %}
             {% endfor %}
         </div>
     </div>

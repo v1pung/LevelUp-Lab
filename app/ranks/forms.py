@@ -9,5 +9,5 @@ class ActivityForm(FlaskForm):
     submit = SubmitField("Submit")
 
     def validate_reward(self, field):
-        if field.data < 1 or field.data > 15:
-            raise ValidationError('Награда должна быть от 1 до 15')
+        if field.data < 5 or field.data > 15:
+            raise ValidationError('Награда должна быть от 5 до 15')

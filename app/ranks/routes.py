@@ -21,7 +21,7 @@ def stats():
     activities = Activity.query.filter_by(owner=current_user.id)
     next_xp = get_next_needed_xp(current_user.rank)
     rank_name = get_rank_name(current_user.rank)
-    history = RankHistory.query.filter_by(user_id=current_user.id)
+    history = RankHistory.query.filter_by(user_id=current_user.id).order_by(RankHistory.date.desc())
     return render_template("ranks/stats.html", title="Статистика", activities=activities, next_xp=next_xp,
                            history=history, rank_name=rank_name)
 
@@ -83,5 +83,4 @@ def delete_activity(id):
 def leaderboard():
     users = Users.query.order_by(Users.rank.desc()).limit(10).all()
     ranking_dict = {user.id: get_rank_name(user.rank) for user in users}
-
     return render_template("ranks/leaderboard.html", users=users, ranking_dict=ranking_dict)

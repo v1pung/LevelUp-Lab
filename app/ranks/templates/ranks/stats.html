@@ -21,7 +21,7 @@
                    name="completed_activities"
                    value="{{ activity.id }}"
                    id="activity_{{ activity.id }}"
-                   {% if activity.is_completed %}checked{% endif %}>
+                   {% if activity.is_completed %} checked {% endif %}>
             <label class="form-check-label ms-2" for="activity_{{ activity.id }}">
                 {{ activity.name }} (+{{ activity.reward }} MMR)
             </label>
@@ -43,7 +43,7 @@
 <!--            <div class="history-date">07.02: <span class="xp-negative">-5 XP</span></div>-->
 <!--            <div class="history-date">06.02: <span class="xp-neutral">+10 XP</span></div>-->
               {% for item in history %}
-                    <div class="history-date">{{ item.date }}: <span class="xp-neutral">+{{ item.value }}XP</span></div>
+                    <div class="history-date">{{ item.date.date() }}: <span class="xp-neutral">+{{ item.value }}XP</span></div>
               {% endfor %}
           </div>
         </div>

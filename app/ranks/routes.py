@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from .forms import ActivityForm
 from .model import Activity, RankHistory
 from .. import db
+from ..auth.model import Users
 from ..functions import get_next_needed_xp, get_rank_name
 
 ranks = Blueprint('ranks', __name__, template_folder='templates', static_folder='static')
@@ -76,3 +77,11 @@ def delete_activity(id):
     except Exception as e:
         print("Ошибка в БД " + str(e))
         return str(e)
+
+
+@ranks.route("/leaderboard", methods=["GET"])
+def leaderboard():
+    users = Users.query.order_by(Users.rank.desc()).limit(10).all()
+    ranking_dict = {user.id: get_rank_name(user.rank) for user in users}
+
+    return render_template("ranks/leaderboard.html", users=users, ranking_dict=ranking_dict)

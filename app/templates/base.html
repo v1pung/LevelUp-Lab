@@ -2,29 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ Title }}</title>
+    <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% block style %} {% endblock %}
 </head>
+
 <body>
-
-<header class="header">
+    <header class="header">
         {% include '_header.html' %}
-</header>
+    </header>
 
-<div class="content">
+    <div class="page-wrapper d-flex flex-column">
+        <div class="content flex-grow-1">
+            {% for cat, msg in get_flashed_messages(True) %}
+                <div class="flash {{ cat }}">{{ msg }}</div>
+            {% endfor %}
 
-    {% for cat, msg in get_flashed_messages(True) %}
-        <div class="flash {{ cat }}">{{ msg }}</div>
-    {% endfor %}
+            {% block content %}{% endblock %}
+        </div>
 
-    {% block content %}
-    {% endblock %}
-
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        {% include '_footer.html' %}
-    </footer>
-</div>
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+            {% include '_footer.html' %}
+        </footer>
+    </div>
 </body>
+
 </html>

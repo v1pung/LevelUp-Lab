@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} Лидерборд {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/libs/font-awesome.min.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<div class="table-responsive custom-table-responsive mx-auto">
+    <table class="table custom-table">
+        <thead>
+            <tr scope="row">
+                <th scope="col">Позиция</th>
+                <th scope="col">Пользователь</th>
+                <th scope="col">MMR</th>
+                <th scope="col">Звание</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr class="{% if loop.index == 1 %}gold{% elif loop.index == 2 %}silver{% elif loop.index == 3 %}bronze{% endif %}">
+                <th>{{ loop.index }}</th>
+                <td>{{ user.login }}</td>
+                <td>{{ user.rank }}</td>
+                <td>{{ ranking_dict.get(user.id) }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, request, redirect, url_for
+from flask import Blueprint, render_template, flash, request, redirect, url_for, abort
 from flask_login import login_required, current_user
 
 from .forms import ActivityForm
@@ -67,17 +67,26 @@ def save_activities():
     return redirect(url_for('ranks.stats'))
 
 
-@ranks.route("/activities/<int:id>/delete", methods=["GET", "POST"])
+@ranks.route("/activities/<int:id>/delete", methods=["POST"])
 @login_required
 def delete_activity(id):
     activity = Activity.query.get(id)
+
+    if activity.owner != current_user.id:
+        abort(403)
+
     try:
+        RankHistory.query.filter_by(activity_id=activity.id).update({
+            'activity_name': activity.name,
+            'activity_id': None
+        })
         db.session.delete(activity)
         db.session.commit()
         return redirect(url_for('ranks.activities'))
     except Exception as e:
+        db.session.rollback()
         print("Ошибка в БД " + str(e))
-        return str(e)
+    return redirect(url_for('ranks.activities'))
 
 
 @ranks.route("/leaderboard", methods=["GET"])

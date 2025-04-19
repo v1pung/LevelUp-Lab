@@ -10,24 +10,24 @@
 
 {% block content %}
 <div class="table-responsive custom-table-responsive mx-auto">
-    <table class="table custom-table">
+    <table class="table custom-table text-center">
         <thead>
             <tr scope="row">
-                <th scope="col">Позиция</th>
-                <th scope="col">Пользователь</th>
-                <th scope="col">MMR</th>
-                <th scope="col">Звание</th>
-                <th scope="col">Выполнено активностей</th>
+                <th scope="col" class="text-start">Позиция</th>
+                <th scope="col" class="ps-0">Пользователь</th>
+                <th scope="col" class="ps-0">MMR</th>
+                <th scope="col" class="ps-0">Звание</th>
+                <th scope="col" class="ps-0">Выполнено задач</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
-        <tr class="{% if loop.index == 1 %}gold{% elif loop.index == 2 %}silver{% elif loop.index == 3 %}bronze{% endif %}">
+            <tr class="{% if loop.index == 1 %}gold{% elif loop.index == 2 %}silver{% elif loop.index == 3 %}bronze{% endif %}">
                 <th class="{% if user.id == current_user.id %}highlight{% endif %}">{{ loop.index }}</th>
-                <td>{{ user.login }}</td>
+                <td class="{% if user.id == current_user.id %}highlight{% endif %}">{{ user.login }}</td>
                 <td>{{ user.rank }}</td>
-                <td>{{ ranking_dict.get(user.id) }}</td>
-                <td>{{ count_completed_tasks(user.id) }}</td>
+                <td class="text-center">{{ ranking_dict.get(user.id) }}</td>
+                <td class="text-center ps-0">{{ count_completed_tasks(user.id) }}</td>
             </tr>
         {% endfor %}
 

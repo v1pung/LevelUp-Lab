@@ -9,7 +9,8 @@ from app import db
 class RankHistory(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
-    activity_id = db.Column(db.Integer, db.ForeignKey('activity.id', ondelete='CASCADE'))
+    activity_id = db.Column(db.Integer)
+    activity_name = db.Column(db.String(100))
     date = db.Column(db.DateTime, default=datetime.today().strftime('%m.%d'))
     value = db.Column(db.Integer, default=-5)
 

@@ -17,6 +17,7 @@
                 <th scope="col">Пользователь</th>
                 <th scope="col">MMR</th>
                 <th scope="col">Звание</th>
+                <th scope="col">Выполнено активностей</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,7 @@
                 <td>{{ user.login }}</td>
                 <td>{{ user.rank }}</td>
                 <td>{{ ranking_dict.get(user.id) }}</td>
+                <td>{{ count_completed_tasks(user.id) }}</td>
             </tr>
         {% endfor %}
 

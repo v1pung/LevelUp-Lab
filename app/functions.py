@@ -1,4 +1,4 @@
-# from auth.model import Users
+from .ranks.model import RankHistory
 
 # names = ['Bronze 1', 'Bronze 2', 'Bronze 3',
 #         'Silver 1', 'Silver 2', 'Silver 3',
@@ -52,6 +52,7 @@ def get_next_needed_xp(current_xp):
 def get_history(user):
     pass
 
+
 def get_rank_code(rank_name):
     mapping = {
         "Bronze": "b",
@@ -73,3 +74,7 @@ def get_rank_code(rank_name):
         return f"ssl"
     return "unknown"
 
+
+def count_completed_tasks(current_user_id):
+    compl_tasks = RankHistory.query.filter_by(user_id=current_user_id).count()
+    return compl_tasks

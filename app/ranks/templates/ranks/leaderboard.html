@@ -4,7 +4,7 @@
 
 {% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/libs/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
 {% endblock %}
 
 
@@ -22,7 +22,7 @@
         <tbody>
         {% for user in users %}
         <tr class="{% if loop.index == 1 %}gold{% elif loop.index == 2 %}silver{% elif loop.index == 3 %}bronze{% endif %}">
-                <th>{{ loop.index }}</th>
+                <th class="{% if user.id == current_user.id %}highlight{% endif %}">{{ loop.index }}</th>
                 <td>{{ user.login }}</td>
                 <td>{{ user.rank }}</td>
                 <td>{{ ranking_dict.get(user.id) }}</td>

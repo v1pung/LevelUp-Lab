@@ -51,3 +51,25 @@ def get_next_needed_xp(current_xp):
 
 def get_history(user):
     pass
+
+def get_rank_code(rank_name):
+    mapping = {
+        "Bronze": "b",
+        "Silver": "s",
+        "Gold": "g",
+        "Platinum": "p",
+        "Diamond": "d",
+        "Сhamp": "c",
+        "Grand champ": "gc",
+        "SSL": "ssl"
+    }
+
+    parts = rank_name.split()
+    if len(parts) == 2:
+        tier, level = parts
+        tier_code = mapping.get(tier.capitalize(), "unknown")
+        return f"{tier_code}{level}"
+    elif parts[0] == "SSL":
+        return f"ssl"
+    return "unknown"
+

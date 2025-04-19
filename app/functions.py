@@ -1,13 +1,6 @@
-from .ranks.model import RankHistory
+from collections import defaultdict
 
-# names = ['Bronze 1', 'Bronze 2', 'Bronze 3',
-#         'Silver 1', 'Silver 2', 'Silver 3',
-#         'Gold 1', 'Gold 2', 'Gold 3',
-#         'Plat 1', 'Plat 2', 'Plat 3',
-#         'Diamond 1', 'Diamond 2', 'Diamond 3',
-#         'Champ 1', 'Champ 2', 'Champ 3',
-#         'Grand champ 1', 'Grand champ 2', 'Grand champ 3',
-#         'SSL'])
+from .ranks.model import RankHistory
 
 
 class Ranks_XP:
@@ -49,8 +42,15 @@ def get_next_needed_xp(current_xp):
     return next_xp
 
 
-def get_history(user):
-    pass
+def get_daily_mmr_sum(user_id):
+    entries = RankHistory.query.filter_by(user_id=user_id).order_by(RankHistory.date.desc()).all()
+
+    daily_sums = defaultdict(int)
+
+    for entry in entries:
+        daily_sums[entry.date] += entry.value
+
+    return daily_sums
 
 
 def get_rank_code(rank_name):

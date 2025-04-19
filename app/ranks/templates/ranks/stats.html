@@ -41,8 +41,8 @@
             <h3>{{ current_user.login }}
                 <p style="color: lightgray !important;">since {{ current_user.date.day }}-{{ current_user.date.month }}-{{ current_user.date.year }}</p>
             </h3>
-              {% for item in history %}
-                    <div class="history-date">{{ item.date.date() }}: <span class="xp-neutral">+{{ item.value }}XP</span></div>
+              {% for date, total_xp in history.items() %}
+                    <div class="history-date">{{ date.date() }}: <span class="xp-neutral">+{{ total_xp }} MMR</span></div>
               {% endfor %}
           </div>
         </div>

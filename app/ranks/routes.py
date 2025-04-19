@@ -5,7 +5,7 @@ from .forms import ActivityForm
 from .model import Activity, RankHistory
 from .. import db
 from ..auth.model import Users
-from ..functions import get_next_needed_xp, get_rank_name, get_rank_code, count_completed_tasks
+from ..functions import get_next_needed_xp, get_rank_name, get_rank_code, count_completed_tasks, get_daily_mmr_sum
 
 ranks = Blueprint('ranks', __name__, template_folder='templates', static_folder='static')
 
@@ -19,10 +19,12 @@ def index():
 @login_required
 def stats():
     activities = Activity.query.filter_by(owner=current_user.id)
+
     next_xp = get_next_needed_xp(current_user.rank)
     rank_name = get_rank_name(current_user.rank)
-    history = RankHistory.query.filter_by(user_id=current_user.id).order_by(RankHistory.date.desc())
+    history = get_daily_mmr_sum(current_user.id)
     rank_code = get_rank_code(rank_name)
+
     return render_template("ranks/stats.html", title="Статистика", activities=activities, next_xp=next_xp,
                            history=history, rank_name=rank_name, rank_code=rank_code)
 

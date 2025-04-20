@@ -57,16 +57,9 @@ body {
     background-size: 40px;
     color: #fafafa !important;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
-@font-face {
-  font-family: raleway-c;
-  src: url(/fonts/raleway-regular.woff2);
-}
-@font-face {
-  font-family: outfit-c;
-  src: url(/fonts/outfit-regular.woff2);
-}
 
 .flash {
   padding: 10px
@@ -100,10 +93,6 @@ body {
     display: block;
     width: 80px;
     height: 50px;
-}
-
-.container {
-    display: flex;
 }
 
 .left-section {
@@ -203,18 +192,220 @@ body {
 }
 
 .btn-success {
-    --bs-btn-color: #fff;
-    --bs-btn-bg: #551987;
-    --bs-btn-border-color: #4b1677;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #401677;
-    --bs-btn-hover-border-color: #33115f;
-    --bs-btn-focus-shadow-rgb: 60, 153, 110;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #4c146c;
-    --bs-btn-active-border-color: #451363;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #fff;
-    --bs-btn-disabled-bg: #551987;
-    --bs-btn-disabled-border-color: #198754;
+  --bs-btn-color: #fff;
+  --bs-btn-bg: rgba(33, 95, 143, 0.808); /* Пастельный синий */
+  --bs-btn-border-color: rgba(150, 180, 220, 0.4); /* Пастельный синий для границы */
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: rgba(72, 126, 173, 0.7); /* Легкий синий оттенок */
+  --bs-btn-hover-border-color: rgba(145, 195, 250, 0.6); /* Пастельный синий для границы при ховере */
+  --bs-btn-focus-shadow-rgb: 100, 150, 210;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: rgba(110, 160, 210, 0.8); /* Пастельный синий для активного состояния */
+  --bs-btn-active-border-color: rgba(145, 195, 250, 0.7);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: rgba(122, 184, 240, 0.4); /* Пастельный синий для отключенной кнопки */
+  --bs-btn-disabled-border-color: rgba(102, 163, 209, 0.4); /* Пастельный синий для границы */
+}
+
+
+/* переменные */
+:root {
+  --index: calc(1vw + 1vh);
+  --color-header: #f4efec;
+  --color-text: #cdc6c3;
+  --gallery-gap: calc(var(--index) * 5.5);
+}
+
+/* willchange */
+.content,
+.hero,
+.main-header,
+.gallery > * {
+  will-change: transform;
+}
+
+.hero {
+  width: calc(var(--index) * 55);
+  position: absolute;
+  left: 0vw;
+  z-index: -1;
+}
+.main-header {
+  height: 20vh;
+}
+.container {
+  padding: 0 7vw;
+}
+.main-title {
+  font-size: calc(var(--index) * 3.5);
+  position: absolute;
+  width: min-content;
+  left: 12vw;
+  bottom: 2.5vh; 
+  /* 24 */
+}
+.second-title {
+  font-size: calc(var(--index) * 1);
+  position: absolute;
+  bottom: 0.0vh;
+  left: 13vw;
+  width: 37vw;
+  /* 18.8 */
+}
+
+.gallery {
+  display: flex;
+  padding: calc(var(--index) * 9) 0;
+  gap: calc(var(--index) * 7);
+}
+.gallery > * {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.gallery-item {
+  max-width: calc(var(--index) * 25);
+  margin-bottom: calc(var(--gallery-gap) * 1.7);
+  max-height: 100vh;
+  border-radius: 8px;
+}
+.custom {
+  max-width: calc(var(--index) * 59);
+}
+.gallery__left .gallery-item {
+  margin-top: calc(var(--index) * 1);
+}
+.gallery__right .gallery-item {
+  margin-top: calc(var(--index) * 1);
+}
+.text-block {
+  color: var(--color-text);
+  position: relative;
+}
+.text-block__h {
+  font-size: 2rem;
+  line-height: 2.4rem;
+  color: var(--color-header);
+  margin-bottom: 0.2rem;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Выше hero и прочих */
+  background-color: rgba(24, 24, 24, 0.8); /* Полупрозрачный фон */
+  backdrop-filter: blur(8px); /* красивый блюр */
+  padding: 14px 10px;
+  height: 8vh;
+}
+
+.task {
+  padding: 12px 18px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  color: #f0f4fa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(30, 30, 30, 0.9);
+  border-left: 5px solid rgba(120, 160, 210, 0.4); /* Пастельный синий для левой границы */
+  transition: background-color 0.3s ease;
+}
+
+.task.yellow {
+  background-color: rgba(122, 184, 240, 0.2); /* Пастельный синий для фона */
+  border-left: 5px solid rgba(122, 184, 240, 0.3); /* Пастельный синий для границы */
+}
+.task.yellow:hover {
+  background-color: rgba(150, 200, 250, 0.25); /* Легкий пастельный синий при ховере */
+}
+
+.task.green {
+  background-color: rgba(122, 184, 240, 0.35); /* Пастельный синий для фона */
+  border-left: 5px solid rgba(122, 184, 240, 0.45); /* Пастельный синий для границы */
+}
+.task.green:hover {
+  background-color: rgba(160, 210, 255, 0.4); /* Легкий синий при ховере */
+}
+
+.task {
+  background-color: rgba(30, 30, 30, 0.9);
+  color: #fff;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.task:hover {
+  background-color: rgba(45, 45, 45, 0.95);
+}
+
+.yellow {
+  border-left: 5px solid #f1c40f;
+}
+
+.green {
+  border-left: 5px solid #27ae60;
+}
+
+.xp-neutral {
+  color: #74b9ff;
+}
+
+.history-date {
+  background-color: rgba(25, 25, 25, 0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.right-section {
+  max-width: 320px;
+}
+
+.xp-info img {
+  border-radius: 10px;
+}
+
+.task {
+  background-color: rgba(30, 30, 30, 0.9);
+  color: #fff;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.task:hover {
+  background-color: rgba(45, 45, 45, 0.95);
+}
+
+.yellow {
+  border-left: 5px solid #f1c40f;
+}
+
+.green {
+  border-left: 5px solid #27ae60;
+}
+
+.xp-neutral {
+  color: #74b9ff;
+}
+
+.history-date {
+  background-color: rgba(25, 25, 25, 0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.right-section {
+  max-width: 320px;
+}
+
+.xp-info img {
+  border-radius: 10px;
+}
+
+.gallery__left .gallery-item:last-child,
+.gallery__right .gallery-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
 }

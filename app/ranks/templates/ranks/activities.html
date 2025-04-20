@@ -6,44 +6,47 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="left-section">
-            <div class="parent">
-                <div>
-                    <h2>Создать задачу</h2>
-                    <form method="post" enctype="multipart/form-data" class="form-control d-flex flex-column gap-2">
-                    {{ form.csrf_token }}
-                    {{ form.name(class="form-control", placeholder="Название") }}
-                    {{ form.reward(class="form-control", placeholder="Количество MMR") }}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-5 ms-auto">
+      <div class="p-4 mt-5">
+        <h2 class="mb-3">Создать задачу</h2>
+        <form method="post" enctype="multipart/form-data" class="d-flex flex-column gap-3">
+          {{ form.csrf_token }}
+          {{ form.name(class="form-control", placeholder="Название") }}
+          {{ form.reward(class="form-control", placeholder="Количество MMR") }}
 
-                    {% if form.reward.errors %}
-                        <div class="invalid-feedback" style="display: block!important;">
-                            {% for error in form.reward.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    {{ form.submit(class="btn btn-success", value="Отправить") }}
-                </form></div>
+          {% if form.reward.errors %}
+            <div class="invalid-feedback d-block">
+              {% for error in form.reward.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
             </div>
-        </div>
+          {% endif %}
 
-        <div class="right-section">
-            <h3>Список ваших задач</h3>
-            {% for activity in activities %}
-                <p>
-                    <div class="task {% if activity.reward <= 10 %}yellow{% else %}green{% endif %}">
-                        {{ activity.name }} {{ activity.reward }}
-
-                        <form action="{{ url_for('ranks.delete_activity', id=activity.id) }}" method="POST" class="ms-auto">
-                            {{ form.csrf_token }}
-                            <button type="submit" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
-                        </form>
-                    </div>
-                </p>
-            {% endfor %}
-        </div>
-
+          {{ form.submit(class="btn btn-success", value="Отправить") }}
+        </form>
+      </div>
     </div>
+
+    <div class="col-lg-6 ms-auto">
+      <div class="p-4 mt-4">
+        <h3 class="mb-3">Список ваших задач</h3>
+        {% for activity in activities %}
+          <div class="task d-flex align-items-center gap-2 {% if activity.reward <= 10 %}yellow{% else %}green{% endif %}">
+            <span>{{ activity.name }} ({{ activity.reward }} MMR)</span>
+            <form action="{{ url_for('ranks.delete_activity', id=activity.id) }}" method="POST" class="ms-auto">
+              {{ form.csrf_token }}
+              <button type="submit" class="btn btn-sm btn-danger">
+                <span class="fa fa-trash"></span>
+              </button>
+            </form>
+          </div>
+        {% else %}
+          <p class="text-muted mt-2">Задач пока нет.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

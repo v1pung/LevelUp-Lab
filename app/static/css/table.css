@@ -264,7 +264,8 @@ h2 {
 
 /* Разделитель между строками */
 .gold::after,
-.silver::after {
+.silver::after,
+.bronze::after {
   content: "";
   position: absolute;
   bottom: -2px;

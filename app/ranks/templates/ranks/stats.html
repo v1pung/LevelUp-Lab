@@ -3,48 +3,59 @@
 {% block title %} Статистика {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="left-section">
-            <div class="xp-info">
-                <div>
-                    <img src="{{ url_for('static', filename='medals/' ~ rank_code ~ '.png') }}"
-                         alt="{{ rank_code }} medal" width="150" height="150">
-                    <p>{{ current_user.rank }} MMR {{ rank_name }}</p>
-                    <p>Next: {{ next_xp }} MMR</p>
-                </div>
+<div class="container d-flex justify-content-between align-items-start mt-5 gap-5">
+
+    <div class="left-section flex-grow-1">
+        <div class="xp-info">
+            <div>
+                <img src="{{ url_for('static', filename='medals/' ~ rank_code ~ '.png') }}"
+                     alt="{{ rank_code }} medal" width="150" height="150">
+                <p>{{ current_user.rank }} MMR {{ rank_name }}</p>
+                <p>Next: {{ next_xp }} MMR</p>
+            </div>
+        </div>
+
+        <form method="post" action="{{ url_for('ranks.save_activities') }}">
+            <div class="row gy-3">
+                {% for activity in activities %}
+                    <div class="col-md-4">
+                        <div class="task px-2 py-auto my-auto d-flex align-items-center rounded
+                            {% if activity.reward < 10 %}yellow{% else %}green{% endif %}">
+                            <input type="checkbox"
+                                   class="form-check-input fs-4 mt-0"
+                                   name="completed_activities"
+                                   value="{{ activity.id }}"
+                                   id="activity_{{ activity.id }}"
+                                   {% if activity.is_completed %} checked {% endif %}>
+                            <label class="form-check-label ms-3 fs-6" for="activity_{{ activity.id }}">
+                                {{ activity.name|truncate(12, True) }} (+{{ activity.reward }})
+                            </label>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
 
-            <form method="post" action="{{ url_for('ranks.save_activities') }}">
-                <div class="tasks">
-    {% for activity in activities %}
-        <div class="task {% if activity.reward <= 10 %}yellow{% else %}green{% endif %}">
-            <input type="checkbox"
-                   class="form-check-input fs-3 mt-auto"
-                   name="completed_activities"
-                   value="{{ activity.id }}"
-                   id="activity_{{ activity.id }}"
-                   {% if activity.is_completed %} checked {% endif %}>
-            <label class="form-check-label ms-2" for="activity_{{ activity.id }}">
-                {{ activity.name }} (+{{ activity.reward }} MMR)
-            </label>
-        </div>
-    {% endfor %}
-</div>
-                <div class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-success">Сохранить</button>
-                </div>
-            </form>
-        </div>
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-success px-4 py-2">Сохранить</button>
+            </div>
+        </form>
+    </div>
 
-        <div class="right-section">
-          <div class="history">
-            <h3>{{ current_user.login }}
-                <p style="color: lightgray !important;">since {{ current_user.date.day }}-{{ current_user.date.month }}-{{ current_user.date.year }}</p>
-            </h3>
-              {% for date, total_xp in history.items() %}
-                    <div class="history-date">{{ date.date() }}: <span class="xp-neutral">+{{ total_xp }} MMR</span></div>
-              {% endfor %}
-          </div>
+    <div class="right-section" style="min-width: 300px;">
+        <h3 class="text-white mb-3">
+            {{ current_user.login }}
+            <p class="fs-6 mb-0" style="color: lightgray !important;">
+                since {{ current_user.date.day }}-{{ current_user.date.month }}-{{ current_user.date.year }}
+            </p>
+        </h3>
+        <div class="history d-flex flex-column gap-2">
+            {% for date, total_xp in history.items() %}
+                <div class="history-date text-white d-flex justify-content-between">
+                    <span>{{ date.date() }}</span>
+                    <span class="xp-neutral">+{{ total_xp }} MMR</span>
+                </div>
+            {% endfor %}
         </div>
     </div>
+</div>
 {% endblock %}

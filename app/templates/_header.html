@@ -1,6 +1,6 @@
 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
     <a href="{{ url_for('ranks.index') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <img class='header__img' src="{{ url_for('static', filename='medals/kotik.jpg') }}" alt="bu">
+        <img class='header__img' src="{{ url_for('static', filename='img/kotik.jpg') }}" alt="bu">
     </a>
 
     <ul class="nav col-12 col-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left: 4px;">
@@ -18,11 +18,9 @@
             Лидерборд</a></li>
     </ul>
 
-    <span class="nav-link mymessage mx-auto">сайт починил ребят ломайте дальше</span>
-
-    <div class="text-end">
+    <div class="ms-auto me-1">
         {% if current_user.is_authenticated %}
-            <span class="me-1">Добро пожаловать, {{ current_user.login }} </span>
+            <span class="me-2">Добро пожаловать, {{ current_user.login }} </span>
             <a href="{{ url_for('auth.profile') }}"><button type="button" class="btn btn-outline-light me-2">Профиль</button></a>
             <a href="{{ url_for('auth.logout') }}"><button type="button" class="btn btn-outline-light me-2">Выйти</button></a>
         {% else %}

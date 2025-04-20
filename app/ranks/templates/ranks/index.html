@@ -2,21 +2,77 @@
 
 {% block title %} Главная {% endblock %}
 
+{% block script %}
+    <!-- <script src="{{ url_for('static', filename='js/gsap.min.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/ScrollSmoother.min.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/ScrollTrigger.min.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script> -->
+{% endblock %}
+
 {% block content %}
-<h2>NEPRIDUMAL - ваш инструмент для продуктивности</h2>
 
-<!-- сделать как в scrollpage-->
-<p>На вкладке Активности создавайте не более 6 задач, которые
-вы должны выполнять каждый день.</p>
-<p> Для каждой задачи можно указать награду - от 5 до 15 MMR.</p>
-<img src="" alt="">
 
-<p>На вкладке Статистика отмечайте выполненные задачи и сохраняйте их, чтобы они не сбросились.</p>
-<p>Каждый день в 00:00 получайте MMR на ваш аккаунт. Ваш ранг и медаль отображены здесь же.</p>
-<p>Сбоку смотрите вашу историю. Если ничего не делаете, только потеряете MMR!</p>
-<img src="" alt="">
+  <body>
+    <div class="wrapper">
+      <div class="content">
+                    <div class="hero-section">
+                      <img data-speed="1" class="hero" src="img/sss/12.png" alt="" />
+                      <div class="container">
+                        <div data-speed=".8" class="main-header">
+                          <h1 class="main-title w-75">LevelUp Lab</h1>
+                          <h2 class="second-title">Ваш инструмент для продуктивности</h2>
+                        </div>
+                      </div>
+                    </div>
 
-<p>Лучшие пользователи попадают в лидерборд.</p>
-<p>Достигните максимального ранга!</p>
+                      <div class="container">
+                        <main class="gallery">
+                          <div data-speed=".9" class="gallery__left">
+                            <img class="gallery-item" src="{{ url_for('static', filename='img/kotik.jpg') }}" alt="" />
+
+                            <div class="text-block gallery-item mt-0">
+                              <h2 class="text-block__h">Статистика</h2>
+                              <p class="text-block__p">
+                                  Отмечайте выполненные задачи и сохраняйте их, чтобы они не сбросились.
+                                <p class="text-block__p">
+                                  Каждый день в 00:00 получайте MMR на ваш аккаунт. Ваш ранг и медаль отображены здесь же.
+                                <p class="text-block__p">
+                                  Сбоку смотрите вашу историю. Если ничего не делаете, только потеряете MMR!
+                              </p>
+                            </div>
+
+                            <img class="gallery-item custom" src="{{ url_for('static', filename='img/kotik.jpg') }}" alt=""/>
+                            <img class="gallery-item" src="img" alt="" />
+                          </div>
+
+                          <div data-speed="1" class="gallery__right">
+                            <div class="text-block gallery-item">
+                              <h2 class="text-block__h">Активности</h2>
+                                <p class="text-block__p">
+                                  Создавайте не более 6 задач, которые вы должны выполнять каждый день.
+                                <p class="text-block__p">
+                                  Для каждой задачи можно указать награду - от 5 до 15 MMR.
+                                <p class="text-block__p">
+                                  Здесь же их можно удалять.
+                            </div>
+
+                            <img class="gallery-item custom" src="{{ url_for('static', filename='img/kotik.jpg') }}" alt="" />
+
+                            <div class="text-block gallery-item mt-5">
+                              <h2 class="text-block__h mt-5">Лидерборд</h2>
+                              <p class="text-block__p">
+                                Ежедневное выполнение задач поможет вам построить новую привычку или стать дисциплинированным.
+                              <p class="text-block__p">
+                                А еще за это вы будете получать очки рейтинга. Попадите в список лучших!
+                            </div>
+
+                          </div>
+                        </main>
+                      </div>
+      </div>
+    </div>
+  </body>
+</html>
+
 
 {% endblock %}

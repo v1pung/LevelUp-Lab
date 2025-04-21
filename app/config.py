@@ -6,6 +6,8 @@ load_dotenv()
 class Config:
     APPNAME = 'app'
     ROOT = os.path.abspath(APPNAME)
+    UPLOAD_PATH = '/static/upload'
+    SERVER_PATH = ROOT + UPLOAD_PATH
 
     # SQLALCH
     default_local_url = f"postgresql://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@127.0.0.1:5332/{os.getenv('POSTGRES_DB')}"

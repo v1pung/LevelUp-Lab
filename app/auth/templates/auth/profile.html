@@ -4,14 +4,18 @@
 
 {% block content %}
 
-<h2>в разработке епт</h2>
+<h2>в разработке</h2>
 <table border="0" class="profile-table">
     <tr><td valign="top">
-        <div class="profile-ava"><img src="{{ current_user.avatar }}" alt=""></div>
+        <div class="profile-ava">
+            <img src="{{ current_user.avatar if current_user.avatar else url_for('static', filename='img/default.png') }}" alt="Аватар" width="125">
+        </div>
+
         <div class="profile-load">
-            <form method="POST" enctype="multipart/form-data">
-                <p><input type="file" name="file"></p>
-                <p><input type="submit" value="Загрузить"></p>
+            <form method="post" enctype="multipart/form-data" class="form-control d-flex flex-column gap-2 w-25">
+                {{ form.csrf_token }}
+                {{ form.avatar }}
+                {{ form.submit }}
             </form>
         </div>
     </td>

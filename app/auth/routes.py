@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, redirect, flash, url_for, request
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from .forms import LoginForm, RegForm
+from .forms import LoginForm, RegForm, AvatarForm
 from .model import Users
 from ..extensions import db
+from ..functions import save_picture
 
 auth = Blueprint('auth', __name__, template_folder='templates', static_folder='static')
 
@@ -53,7 +54,16 @@ def logout():
     return redirect(url_for('auth.login'))
 
 
-@auth.route("/profile")
+@auth.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template("auth/profile.html", title="Профиль")
+    form = AvatarForm()
+    if request.method == 'POST':
+        file = form.avatar.data
+        if file.filename != '':
+            filename = save_picture(file)
+            current_user.avatar = url_for('static', filename='upload/' + filename)
+            db.session.commit()
+            return redirect(url_for('auth.profile'))
+
+    return render_template('auth/profile.html', form=form)

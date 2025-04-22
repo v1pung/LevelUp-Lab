@@ -47,13 +47,14 @@ def get_next_needed_xp(current_xp):
 
 def get_daily_mmr_sum(user_id):
     entries = RankHistory.query.filter_by(user_id=user_id).order_by(RankHistory.date.desc()).all()
-
     daily_sums = defaultdict(int)
 
     for entry in entries:
-        daily_sums[entry.date] += entry.value
+        daily_sums[entry.date.date()] += entry.value
 
-    return daily_sums
+    sorted_daily = dict(sorted(daily_sums.items(), key=lambda item: item[0], reverse=True)[:5])
+
+    return sorted_daily
 
 
 def get_rank_code(rank_name):

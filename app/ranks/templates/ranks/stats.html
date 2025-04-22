@@ -51,7 +51,7 @@
         <div class="history d-flex flex-column gap-2">
             {% for date, total_xp in history.items() %}
                 <div class="history-date text-white d-flex justify-content-between">
-                    <span>{{ date.date() }}</span>
+                    <span>{{ date }}</span>
                     <span class="xp-neutral">+{{ total_xp }} MMR</span>
                 </div>
             {% endfor %}

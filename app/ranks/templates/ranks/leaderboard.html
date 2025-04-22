@@ -25,7 +25,7 @@
             <tr class="{% if loop.index == 1 %}gold{% elif loop.index == 2 %}silver{% elif loop.index == 3 %}bronze{% endif %}">
                 <th class="{% if user.id == current_user.id %}highlight{% endif %}">{{ loop.index }}</th>
                 <td class="{% if user.id == current_user.id %}highlight{% endif %} ps-3 pe-3">
-                        <img src="{{ current_user.avatar if current_user.avatar and current_user.login == user.login else url_for('static', filename='img/default.png') }}"
+                        <img src="{{ user.avatar if user.avatar else url_for('static', filename='img/default.png') }}"
                              alt="Аватар" width="40" class="pe-2">
                     {{ user.login|truncate(8, True) }}
                 </td>

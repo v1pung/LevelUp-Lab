@@ -5,7 +5,7 @@ from .forms import ActivityForm
 from .model import Activity, RankHistory
 from .. import db
 from ..auth.model import Users
-from ..functions import get_next_needed_xp, get_rank_name, get_rank_code, count_completed_tasks, get_daily_mmr_sum
+from ..utils import get_next_needed_xp, get_rank_name, get_rank_code, count_completed_tasks, get_daily_mmr_sum
 
 ranks = Blueprint('ranks', __name__, template_folder='templates', static_folder='static')
 

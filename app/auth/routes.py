@@ -5,7 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .forms import LoginForm, RegForm, AvatarForm
 from .model import Users
 from ..extensions import db
-from ..functions import save_picture
+from ..utils import save_picture
 
 auth = Blueprint('auth', __name__, template_folder='templates', static_folder='static')
 

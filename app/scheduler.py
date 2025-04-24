@@ -44,4 +44,4 @@ def save_xp():
 
 
 
-scheduler.add_job(id='save_xp_job', func=save_xp, trigger='cron', hour=00, minute=00, misfire_grace_time=60)
+scheduler.add_job(id='save_xp_job', func=save_xp, trigger='cron', hour=23, minute=59, misfire_grace_time=60)
